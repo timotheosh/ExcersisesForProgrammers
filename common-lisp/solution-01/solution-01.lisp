@@ -19,9 +19,7 @@
   (* bill (+ 1 tip-rate)))
 
 (defun tip-calculator ()
-  (princ "What is the bill amount?")
-  (read-line bill)
+  (setf bill (enter-bill-amount))
   (fresh-line)
-  (princ "What is the tip rate?")
-  (read-line tip-rate)
+  (setf tip-rate (enter-tip-rate))
   (format t "The total is ~A" (get-total bill tip-rate)))
