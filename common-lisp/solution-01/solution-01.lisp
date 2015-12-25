@@ -20,41 +20,44 @@
 
 (defun enter-bill-amount ()
   "Enter the bill amount."
-  (defparameter bill-amount 0)
-  (loop
-     (if (zerop bill-amount)
-         (progn
-           (setf bill-amount (or
-                              (parse-float (prompt-read "Enter bill amount"))
-                              0))
-           (when (zerop bill-amount)
-             (format t "~%That is not a valid amount! Digits only, please.~%")))
-         (return)))
-  (setf bill-amount (read-from-string (format nil "~$" bill-amount))))
+  (let ((bill-amount 0))
+    (loop
+       (if (zerop bill-amount)
+           (progn
+             (setf bill-amount (or
+                                (parse-float (prompt-read "Enter bill amount"))
+                                0))
+             (when (zerop bill-amount)
+               (format t "~%That is not a valid amount! Digits only, please.~%")))
+           (return)))
+    (setf bill-amount (read-from-string (format nil "~$" bill-amount)))))
 
 (defun enter-tip-rate ()
-  (princ "Enter the tip rate (without the %, default is 15): ")
-  (let ((tip-rate (read-line)))
-    (if (zerop (length tip-rate))
-        0.15
-        (/ (read-from-string tip-rate) 100.00))))
+  "Enter tip rate."
+  (let ((tip-rate nil))
+    (loop
+       (if (not tip-rate)
+           (let ((d (prompt-read "Enter the tip rate (without the %, default is 15)")))
+             (when (zerop (length d))
+               (progn
+                 (setf tip-rate 15)
+                 (return)))
+             (setf d (or (parse-float d) nil))
+             (if (not d)
+                 (format t "~%That is not a valid amount! Digits only, please.~%")
+                 (progn
+                   (setf tip-rate d)
+                   (return))))))
+    (/ tip-rate 100.0)))
 
-(defun get-total (bill tip-rate)
-  "bill and tip rate should be floats. tip rate should be a
-   percentage, already divided by 100"
-  (read-from-string (format nil "~$" (* bill (+ 1 tip-rate)))))
+(defun tip-amount (bill tip-rate)
+  "Return the tip amount. The bill and tip-rate should be floats. The
+tip-rate is a percentage, already divided by 100."
+  (parse-float (format nil "~,2F" (* bill tip-rate))))
 
 (defun tip-calculator ()
-  (setf bill (enter-bill-amount))
-  (fresh-line)
-  (setf tip-rate (enter-tip-rate))
-  (format t "The total is ~A" (get-total bill tip-rate)))
-
-(defun enter-bill ()
-  (setf bill "")
-  (loop
-       (when (zerop (length bill))
-         (princ "Enter bill amount: ")
-         (setf bill (read-line))
-         (fresh-line)))
-  bill)
+  (let* ((bill (enter-bill-amount))
+         (tip-rate (enter-tip-rate))
+         (tip (tip-amount bill tip-rate)))
+    (format t "The tip is ~,2F~%" tip)
+    (format t "The total is ~,2F" (+ bill (* bill tip-rate)))))
