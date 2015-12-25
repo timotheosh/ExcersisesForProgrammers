@@ -20,13 +20,17 @@
 
 (defun enter-bill-amount ()
   "Enter the bill amount."
-  (setf bill-amount "")
+  (defparameter bill-amount 0)
   (loop
-     (if (zerop (length bill-amount))
-       (progn (princ "Enter the bill amount: ")
-              (setf bill-amount (read-line)))
-       (return)))
-  (setf bill-amount (read-from-string (format nil "~$" (read-from-string bill-amount)))))
+     (if (zerop bill-amount)
+         (progn
+           (setf bill-amount (or
+                              (parse-float (prompt-read "Enter bill amount"))
+                              0))
+           (when (zerop bill-amount)
+             (format t "~%That is not a valid amount! Digits only, please.~%")))
+         (return)))
+  (setf bill-amount (read-from-string (format nil "~$" bill-amount))))
 
 (defun enter-tip-rate ()
   (princ "Enter the tip rate (without the %, default is 15): ")
