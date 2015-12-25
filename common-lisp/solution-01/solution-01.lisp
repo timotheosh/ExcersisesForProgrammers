@@ -1,4 +1,22 @@
-;; Solution 1
+;;;; Solution 1
+
+;;;; Utility functions
+(defun parse-float (string)
+  "Return a float read from string, and the index to the remainder of string."
+  (multiple-value-bind (integer i)
+      (parse-integer string :junk-allowed t)
+    (if (= (length string) i)
+        (values integer i)
+        (multiple-value-bind (fraction j)
+            (parse-integer string :start (+ i 1) :junk-allowed t)
+          (if (null fraction)
+              (values integer i)
+              (values (float (+ integer (/ fraction (expt 10 (- j i 1))))) j))))))
+
+(defun prompt-read (prompt)
+  (format *query-io* "~a: " prompt)
+  (force-output *query-io*)
+  (read-line *query-io*))
 
 (defun enter-bill-amount ()
   "Enter the bill amount."
