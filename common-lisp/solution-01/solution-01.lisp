@@ -30,6 +30,8 @@
            (return)))
     (setf bill-amount (read-from-string (format nil "~$" bill-amount)))))
 
+
+;; This function is broken. SBCL reports unreachable code
 (defun enter-tip-rate-old ()
   "Enter tip rate."
   (let ((tip-rate nil))
