@@ -39,3 +39,20 @@
 ;; holds quotes and their associated attributions and then display all
 ;; of the quotes using the format in the example. An array of maps
 ;; would be a good choice.
+
+(defparameter *famous-quotes*
+  '(
+    ("Lord Acton" "Power tends to corrupt and absolute power corrupts absolutely.")
+    ("Francis Bacon" "Some books are to be tasted, others to be swallowed, and some few to be chewed and digested.")
+    ("Nikolaus von Jacquin" "Neither a lofty degree of intelligence nor imagination nor both together go to the making of genius. Love, love, love, that is the soul of
+   genius.")
+    ("Vince Lombardi" "The quality of a person's life is in direct proportion to their commitment to excellence, regardless of their chosen field of endeavor.")
+    ("Teresa Calcutta" "If we have no peace, it is because we have forgotten that we belong to each other.")
+    ("Andre Gide" "Believe those who are seeking the truth. Doubt those who find it.")
+    ("Edith Sitwell" "I am patient with stupidity but not with those who are proud of it.")
+    ("Albert Einstein" "Any man who reads too much and uses his own brain too little falls into lazy habits of thinking")))
+
+(defun print-quotes (quotes)
+    "Takes a list of lists. Each list has a car of the author's name and the quote in the cdr."
+  (dolist (quote quotes)
+    (format t "~a~%" (quote-quote (cadr quote) (car quote)))))
