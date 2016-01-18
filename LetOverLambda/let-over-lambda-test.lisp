@@ -56,3 +56,45 @@
         (if (eq direction 'up)
             (incf counter)
             (decf counter))))))
+
+(defun sleep-units% (value unit)
+  (sleep
+    (* value
+       (case unit
+         ((s) 1)
+         ((m) 60)
+         ((h) 3600)
+         ((d) 86400)
+         ((ms) 1/1000)
+         ((us) 1/1000000)))))
+
+(defun unit-of-time% (value unit)
+  (* value
+     (case unit
+       ((s) 1)
+       ((m) 60)
+       ((h) 3600)
+       ((d) 86400)
+       ((ms) 1/1000)
+       ((us) 1/1000000))))
+
+(defmacro unit-of-time (value unit)
+  `(* ,value
+      ,(case unit
+             ((s) 1)
+             ((m) 60)
+             ((h) 3600)
+             ((d) 86400)
+             ((ms) 1/1000)
+             ((us) 1/1000000))))
+
+(defmacro nlet (n letargs &rest body)
+  `(labels ((,n ,(mapcar #'car letargs)
+              ,@body))
+     (,n ,@(mapcar #'cadr letargs))))
+
+(defun nlet-fact (n)
+  (nlet fact ((n n))
+    (if (zerop n)
+      1
+      (* n (fact (- n 1))))))
