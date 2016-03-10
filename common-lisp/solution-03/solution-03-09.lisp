@@ -25,4 +25,4 @@
   (let ((width  (enter-number "Enter width of ceiling"))
         (length (enter-number "Enter length of ceiling"))
         (sqr-feet))
-    (setf sqr-feet (* width length))
+    (setf sqr-feet (* width length))))
