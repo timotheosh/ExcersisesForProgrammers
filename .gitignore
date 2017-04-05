@@ -1,11 +1,28 @@
-*.swp
+# Emacs artifacts
 *~
 \#*
 .\#*
 *\#
+
+# Vi(m) artifacts
+*.swp
+
+# Common Lisp artifacts
+*.fasl
+
+# Python artifacts
 *.pyc
 *.pyo
+
+# Java artifacts
 *.class
+
+# C/C++ artifacts
 *.o
+
+# Elisp artifacts
 *.elc
+
+# Misc artifacts
 build/
+.idea/
