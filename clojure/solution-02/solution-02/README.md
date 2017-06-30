@@ -1,4 +1,4 @@
-# lesson02
+# solution-02
 
 FIXME: description
 
@@ -10,7 +10,7 @@ Download from http://example.com/FIXME.
 
 FIXME: explanation
 
-    $ java -jar lesson02-0.1.0-standalone.jar [args]
+    $ java -jar solution-02-0.1.0-standalone.jar [args]
 
 ## Options
 

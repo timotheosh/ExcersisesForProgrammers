@@ -1,4 +1,4 @@
-(ns lesson02.core
+(ns solution-02.core
   (:gen-class))
 
 (defn -main
