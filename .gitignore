@@ -26,13 +26,14 @@
 # Clojure(script) artifacts
 pom.xml
 *jar
-/lib/
-/classes/
-/release/
-/target/
+lib/
+classes/
+release/
+target/
 .lein-deps-sum
 .lein-repl-history
 .lein-plugins/
+.nrepl-port
 
 # Misc artifacts
 build/

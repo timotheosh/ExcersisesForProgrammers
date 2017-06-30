@@ -2,6 +2,17 @@
   (:gen-class))
 
 (defn -main
-  "I don't do a whole lot ... yet."
+  "Print the length of entered strings."
   [& args]
-  (println "Hello, World!"))
+  (print "What is the input string? ")
+  (flush)
+  (loop [input (read-line)]
+    (if (= (count input) 0)
+        (do
+          (print "You must enter something! What is the input string? ")
+          (flush)
+          (recur (read-line)))
+        (do
+          (println
+           (format "%s has %s characters." input (count input)))
+          (flush)))))
