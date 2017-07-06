@@ -1,7 +1,13 @@
 (page "index.html")
-
+(defc text-input "")
 (html
   (head
     (link :href "app.css" :rel "stylesheet" :type "text/css"))
   (body
-    (h1 "Hello, Hoplon!")))
+   (h1 "Solution 02")
+   (input
+      :type "text"
+      :placeholder "Enter your string"
+      :value text-input
+      :keyup #(reset! text-input @%))
+   (p (text "Length of text input: ~{(count text-input)}"))))
