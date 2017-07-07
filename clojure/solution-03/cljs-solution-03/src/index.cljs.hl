@@ -1,0 +1,19 @@
+(page "index.html")
+(defc myquote "")
+(defc author "")
+(html
+  (head
+    (link :href "app.css" :rel "stylesheet" :type "text/css"))
+  (body
+   (h1 "Famous Quotes")
+   (p (input
+       :type "text"
+       :placeholder "Enter your quote"
+       :value myquote
+       :change #(reset! myquote @%)))
+   (p (input
+       :type "text"
+       :placeholder "Who said it?"
+       :value author
+       :change #(reset! author @%)))
+   (p (text "~{author} says \"~{myquote}\""))))
