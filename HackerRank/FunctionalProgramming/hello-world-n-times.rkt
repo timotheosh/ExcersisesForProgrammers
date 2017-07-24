@@ -1,6 +1,7 @@
 #lang racket
+(define (hello-world-n-times n)
+  (for ([i (in-range n)])
+    (displayln "Hello World")))
 
-(let ((input (string->number (read-line))))
-  (for ([i input])
-    (display
-     (format "Hello World~%"))))
+
+(hello-world-n-times (read))
