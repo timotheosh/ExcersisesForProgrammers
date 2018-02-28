@@ -2,6 +2,7 @@
 
 from sys import exit
 
+
 class Sol01:
     def __init__(self, bill, tip_rate):
         try:
@@ -10,7 +11,7 @@ class Sol01:
             self.tip = None
             self.total = None
             self._calculate()
-        except Exception,e:
+        except ValueError, e:
             print e.message
             exit(1)
 
@@ -19,7 +20,7 @@ class Sol01:
             tip = (float(self.tip_rate)/100.0) * self.bill
             self.tip = format(tip, '.2f')
             self.total = format(self.bill + tip, '.2f')
-        except Exception,e:
+        except ValueError, e:
             print e.message
             exit(1)
 
@@ -32,7 +33,7 @@ def main():
     tip_rate = raw_input("What is the tip rate percentage (default 15)? ")
     if not tip_rate:
         tip_rate = 15
-    calc = Sol01(bill,tip_rate)
+    calc = Sol01(bill, tip_rate)
     calc.display()
 
 if __name__ == "__main__":

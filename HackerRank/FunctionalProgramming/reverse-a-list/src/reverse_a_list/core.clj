@@ -1,9 +1,10 @@
 (ns reverse-a-list.core
   (:gen-class))
 
-
-(fn[lst]
-  (for [i (range (count lst))]))
+(defn reverse-list [lst]
+  (if (empty? lst)
+    []
+    (conj (reverse-list (rest lst)) (first lst))))
 
 (defn -main
   "I don't do a whole lot ... yet."
