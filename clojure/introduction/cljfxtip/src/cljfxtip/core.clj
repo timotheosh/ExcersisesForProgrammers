@@ -85,7 +85,7 @@
         tip (* mcost (/ tipr 100))]
     (str (+ mcost tip))))
 
-(defn -main []
+(defn start []
   (let [;; Data State holds the business logic of our app
         data-state (atom {:clicked? false :total "0.00"})
 
