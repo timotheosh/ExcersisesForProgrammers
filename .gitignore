@@ -11,6 +11,7 @@
 *.fasl
 
 # Python artifacts
+.mypy_cache/
 *.pyc
 *.pyo
 

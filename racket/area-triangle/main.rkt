@@ -25,6 +25,26 @@
 ;; http://docs.racket-lang.org/style/index.html
 
 ;; Code here
+(require (planet jphelps/loop))
+
+(define (prompt-read prompt)
+  (display (format "~A " prompt))
+  (read))
+
+(define (enter-number prompt-text)
+  "Entering numbers using a prompt"
+  (let ((fnum null))
+    (loop
+     (if (or (not (number? fnum))
+             (negative? fnum))
+        (begin
+          (set! fnum (or
+                      (prompt-read prompt-text)
+                      -1))
+          (when (or (not (number? fnum)) (negative? fnum))
+            (displayln "Invalid number! Number must be a positive integer.")))
+        (return)))
+    fnum))
 
 (define (area-rectangle-feet length width)
   (* length width))
@@ -35,8 +55,11 @@
      (~r (* sqr-feet 0.09290304) #:precision 3))))
 
 (define (get-feet dim)
-  (display (format "What is the ~A of the room in feet? " dim))
-  (string->number (read-line)))
+  (let req-num ((num ""))
+    (display (format "What is the ~A of the room in feet? " dim))
+    (when (not (number? num))
+      (req-num (read)))
+    num))
 
 (module+ test
   ;; Tests to be run with raco test
