@@ -1,0 +1,23 @@
+#|-*- mode:lisp -*-|#
+(in-package :cl-user)
+(defpackage :lake.user
+  (:use :cl :lake :cl-syntax)
+  (:shadowing-import-from :lake
+                          :directory))
+(in-package :lake.user)
+
+(use-syntax :interpol)
+
+(defparameter system "saying-hello")
+
+(task "clean" ()
+      (format t "Cleaning project...~%")
+      (sh "rm -rf target/"))
+
+(task "default" ("saying-hello.asd" "src/main.lisp")
+      (lake :target "clean")
+      (format t "Compiling system to target/~A~%" system)
+      (asdf:make :saying-hello))
+
+(task "test" ("saying-hello.asd" "src/main.lisp")
+      (asdf:test-system :saying-hello))
