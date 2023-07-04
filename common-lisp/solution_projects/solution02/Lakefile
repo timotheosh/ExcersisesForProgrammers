@@ -1,0 +1,22 @@
+#|-*- mode:lisp -*-|#
+(in-package :cl-user)
+(defpackage :lake.user
+  (:use :cl :lake :cl-syntax)
+  (:shadowing-import-from :lake
+                          :directory))
+(in-package :lake.user)
+
+(use-syntax :interpol)
+
+(defparameter system "counting-characters")
+
+(task "clean" ()
+      (sh "rm -rf target/"))
+
+(task "default" ("counting-characters.asd" "src/main.lisp")
+      (lake :target "clean")
+      (format t "Compiling system to target/~A~%" system)
+      (asdf:make :counting-characters))
+
+(task "test" ("counting-characters.asd" "src/main.lisp")
+      (asdf:test-system :counting-characters))
